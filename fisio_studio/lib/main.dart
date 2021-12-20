@@ -1,3 +1,5 @@
+import 'package:fisio_studio/views/cadastro_funcionario.dart';
+import 'package:fisio_studio/views/home_page.dart';
 import 'package:fisio_studio/views/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'views/login.dart';
@@ -17,7 +19,7 @@ class InitAppState extends State<InitApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }

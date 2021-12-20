@@ -1,6 +1,7 @@
+import 'package:fisio_studio/components.dart';
 import 'package:fisio_studio/views/splash_page.dart';
 import 'package:fisio_studio/widgets/custom_buttom.dart';
-import 'package:fisio_studio/widgets/text_input.dart';
+import 'package:fisio_studio/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -14,13 +15,7 @@ class LoginPage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      "images/background.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              decoration: backgroundApp,
               child: Row(
                 children: [
                   Expanded(
@@ -68,9 +63,9 @@ class AutenticatorBox extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 15),
-                  child: const TextInput(
+                  child: CustomTextFiled(
                     hintText: 'Usuário',
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.person,
                       color: Colors.white,
                     )
@@ -78,9 +73,9 @@ class AutenticatorBox extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 15),
-                  child: const TextInput(
+                  child: CustomTextFiled(
                     hintText: 'Senha',
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.lock,
                       color: Colors.white,
                     )
@@ -89,6 +84,7 @@ class AutenticatorBox extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 25),
                   child: CustomButtom(
+                    label: 'Acessar',
                     onPressed: () {
                       Navigator.of(context).push(PageRouteBuilder(
                       transitionDuration: const Duration(seconds: 2),

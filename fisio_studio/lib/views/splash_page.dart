@@ -1,3 +1,4 @@
+import 'package:fisio_studio/components.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -18,13 +19,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           Expanded(
             child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      "images/background.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              decoration: backgroundApp,
               child: Container(
                 child: Column(
                   children: [
