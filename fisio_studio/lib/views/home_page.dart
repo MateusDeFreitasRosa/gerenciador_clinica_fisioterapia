@@ -1,5 +1,6 @@
 import 'package:fisio_studio/components.dart';
 import 'package:fisio_studio/models/data_funcionario.dart';
+import 'package:fisio_studio/models/data_paciente.dart';
 import 'package:fisio_studio/views/cadastro_funcionario.dart';
 import 'package:fisio_studio/views/cadastro_paciente.dart';
 import 'package:fisio_studio/widgets/CustomButtonDrawer.dart';
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   final DataFuncionario dataFuncionario = DataFuncionario('Mateus', 'Rua rua', '14/15/20', '3488888', '121244545', 'Recepcionista');
+  final DataPaciente dataPaciente = DataPaciente('Mateus', 'Rua rua', '14/15/20', '3488888', '121244545');
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,7 @@ class _HomePageState extends State<HomePage> {
               : currentPage == 1 
               ? CadastroFuncionario(isEditPage: true, dataFuncionario: dataFuncionario,)
               : currentPage == 2 
-              ? const CadastroPaciente()
+              ? CadastroPaciente(isEditPage: true, dataPaciente: dataPaciente,)
               : const Scaffold(backgroundColor: Colors.purple,)
             )
           ],
