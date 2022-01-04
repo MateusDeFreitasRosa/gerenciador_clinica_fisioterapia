@@ -39,11 +39,26 @@ class _HomePageState extends State<HomePage> {
 
   final DataFuncionario dataFuncionario = DataFuncionario('Mateus', 'Rua rua', '14/15/20', '3488888', '121244545', 'Recepcionista');
   final DataPaciente dataPaciente = DataPaciente('Mateus', 'Rua rua', '14/15/20', '3488888', '121244545');
+  dynamic expanded;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            setState(() => expanded=!expanded);
+          },
+          padding: const EdgeInsets.only(right: 15),
+          autofocus: false,
+          alignment: Alignment.center,
+          iconSize: 25,
+          icon: const Icon(
+            Icons.filter_list,
+            //color: LightTheme.textColorDarkBlueGrey,
+          ),
+        ),
         title: Text(
           pages[currentPage]!['name']
         ),
@@ -51,7 +66,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 4,
         centerTitle: true,
       ),
-      drawer: Drawer(
+      /*drawer: Drawer(
         backgroundColor: Colors.transparent,
         elevation: 0,
         child: Container(
@@ -83,7 +98,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
+      ),*/
       body: Container(
         decoration: backgroundApp,
         child: Column(

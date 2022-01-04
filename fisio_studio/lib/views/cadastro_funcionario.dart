@@ -104,6 +104,18 @@ class CadastroFuncionario extends StatelessWidget {
                         ),
                       ),
 
+                      Slider(
+                        value: 180,
+                        onChanged: (value){
+
+                        },
+                        min: 30,
+                        max: 230,
+                        inactiveColor: const Color(0xFF6C6D7B),
+                        activeColor: Colors.white,
+                        thumbColor: const Color(0xFFEB1555),
+                      ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
