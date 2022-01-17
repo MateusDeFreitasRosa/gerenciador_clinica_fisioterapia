@@ -1,14 +1,9 @@
-import 'package:fisio_studio/models/data_paciente.dart';
 import 'package:fisio_studio/widgets/custom_buttom.dart';
 import 'package:fisio_studio/widgets/custom_textfield.dart';
-import 'package:fisio_studio/widgets/delete_button.dart';
 import 'package:flutter/material.dart';
 
 class CadastroPaciente extends StatelessWidget {
-  final DataPaciente ? dataPaciente;
-  final bool isEditPage; 
-
-  const CadastroPaciente({ Key? key, this.isEditPage=false, this.dataPaciente }) : super(key: key);
+  const CadastroPaciente({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +28,6 @@ class CadastroPaciente extends StatelessWidget {
                         Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         child: CustomTextFiled(
-                          labelInit: isEditPage && dataPaciente != null ? dataPaciente!.name : '',
                           hintText: 'Nome paciente',
                           icon: const Icon(
                             Icons.person,
@@ -45,7 +39,6 @@ class CadastroPaciente extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         child: CustomTextFiled(
-                          labelInit: isEditPage && dataPaciente != null ? dataPaciente!.birthDate : '',
                           hintText: 'Data de Nascimento',
                           icon: const Icon(
                             Icons.calendar_today_rounded,
@@ -57,7 +50,6 @@ class CadastroPaciente extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         child: CustomTextFiled(
-                          labelInit: isEditPage && dataPaciente != null ? dataPaciente!.phone : '',
                           hintText: 'Telefone',
                           icon: const Icon(
                             Icons.phone,
@@ -69,7 +61,6 @@ class CadastroPaciente extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         child: CustomTextFiled(
-                          labelInit: isEditPage && dataPaciente != null ? dataPaciente!.cpf : '',
                           hintText: 'Documento CPF',
                           icon: const Icon(
                             Icons.contacts,
@@ -81,7 +72,6 @@ class CadastroPaciente extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(top: 10, bottom: 30),
                         child: CustomTextFiled(
-                          labelInit: isEditPage && dataPaciente != null ? dataPaciente!.adress : '',
                           hintText: 'Endereço',
                           icon: const Icon(
                             Icons.work,
@@ -90,17 +80,10 @@ class CadastroPaciente extends StatelessWidget {
                         ),
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomButtom(
-                            label: isEditPage ? 'Editar' : 'Cadastrar',
-                            onPressed: () {},
-                          ),
-
-                          isEditPage ? const DeleteButton() : Container(),
-                        ],
-                      ),
+                      CustomButtom(
+                        label: 'Cadastrar',
+                        onPressed: () {},
+                      )
                     ],
                   ),
                 )
