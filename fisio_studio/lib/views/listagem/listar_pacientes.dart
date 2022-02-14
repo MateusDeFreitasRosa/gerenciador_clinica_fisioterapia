@@ -1,8 +1,9 @@
-import 'package:fisio_studio/controllers/delete.dart';
+import 'package:fisio_studio/widgets/delete.dart';
 import 'package:fisio_studio/controllers/getPaciente.dart';
 import 'package:fisio_studio/controllers/visualization.dart';
 import 'package:fisio_studio/models/data_paciente.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ListPaciente extends StatefulWidget {
   final changePage;
@@ -16,29 +17,37 @@ class _ListPacienteState extends State<ListPaciente> {
   List<CardPaciente> cards = [];
   int page = 0;
   int pageSize = 10;
+  bool isfreeze = true;
 
   buildTable() async {
-    dynamic data = await getPaciente(page: page, pageSize: pageSize);
-    print('Data: ${data}');
-    List<dynamic> rows = data['rows'];
+    try {
+      dynamic data = await getPaciente(page: page, pageSize: pageSize);
+      print('Data: ${data}');
+      List<dynamic> rows = data['rows'];
 
-    int position = 1;
-    rows.forEach((element) {
-      print('CPF: ${element['CPF']}');
-      setState(() {
-        cards.add(CardPaciente(
-          dataPaciente: DataPaciente(
-              element['nome'] ?? 'Sem nome',
-              element['endereco'] ?? 'Sem endereço',
-              element['data_de_nascimento'] ?? '2000-01-01',
-              element['telefone'] ?? '(XX) X XXXX-XXXX',
-              element['CPF'] ?? 'XXX-XXX-XXX.XX'),
-          pos: position,
-          changePage: widget.changePage,
-        ));
+      int position = 1;
+      rows.forEach((element) {
+        print('CPF: ${element['CPF']}');
+        setState(() {
+          cards.add(CardPaciente(
+            dataPaciente: DataPaciente(
+                element['id'] ?? '',
+                element['nome'] ?? 'Sem nome',
+                element['endereco'] ?? 'Sem endereço',
+                element['data_de_nascimento'] ?? '2000-01-01',
+                element['telefone'] ?? '(XX) X XXXX-XXXX',
+                element['CPF'] ?? 'XXX-XXX-XXX.XX'),
+            pos: position,
+            changePage: widget.changePage,
+          ));
+        });
+        position++;
       });
-      position++;
-    });
+    } catch (e) {
+      print(e);
+    } finally {
+      setState(() => isfreeze = false);
+    }
   }
 
   @override
@@ -53,17 +62,20 @@ class _ListPacienteState extends State<ListPaciente> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.transparent,
-        body: Column(
-          children: [
-            const HeadPaciente(),
-            Expanded(
-              child: cards.length == 0
-                  ? Container()
-                  : ListView(
-                      children: cards,
-                    ),
-            )
-          ],
+        body: ModalProgressHUD(
+          inAsyncCall: isfreeze,
+          child: Column(
+            children: [
+              const HeadPaciente(),
+              Expanded(
+                child: cards.length == 0
+                    ? Container()
+                    : ListView(
+                        children: cards,
+                      ),
+              )
+            ],
+          ),
         ));
   }
 }
@@ -172,7 +184,7 @@ class CardPaciente extends StatelessWidget {
                         onTap: () {
                           changePage(
                             2,
-                            isPaciente: false,
+                            isPaciente: true,
                             isEdt: true,
                             dtPaciente: dataPaciente,
                           );

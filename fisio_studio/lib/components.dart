@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const palleteColorTypeAppointment = 'appointmentColors';
+
 const backgroundApp = BoxDecoration(
   image: DecorationImage(
     image: AssetImage("images/background.png"),
@@ -13,10 +15,13 @@ Map<String, dynamic> urlRequest = {
   'post': {
     'cadastroFuncionario': urlServer + 'funcionario',
     'cadastroCliente': urlServer + 'cliente',
+    'cadastroConsulta': urlServer + 'cliente/agendamento'
   },
   'get': {
     'getFuncionario': urlServer + 'funcionario',
-    'getCliente': urlServer + 'cliente'
+    'getCliente': urlServer + 'cliente',
+    'getConsultas': urlServer + 'cliente/agendamento/horarios',
+    'login': urlServer + 'login'
   },
   'update': {
     'atualizaFuncionario': urlServer + 'funcionario',
@@ -24,6 +29,7 @@ Map<String, dynamic> urlRequest = {
   },
   'delete': {
     'deleteFuncionario': urlServer + 'funcionario',
-    'deleteCliente': urlServer + 'cliente'
+    'deleteCliente': urlServer + 'cliente',
+    'deleteConsulta': urlServer + 'cliente/agendamento'
   }
 };

@@ -1,7 +1,9 @@
+import 'package:fisio_studio/components.dart';
 import 'package:fisio_studio/models/data_funcionario.dart';
 import 'package:fisio_studio/models/data_paciente.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 void deleteUser(context,
     {isFuncionario = false,
@@ -41,7 +43,34 @@ void deleteUser(context,
                   fontWeight: FontWeight.bold,
                   color: Colors.white)),
           onPressed: () {
-            Navigator.of(context).pop();
+            // Deletar funcionario ou paciente.
+            Dio dio = Dio();
+
+            String nome = 'ADM';
+            String senha = 'senha12345';
+            dio.options.headers['nome_de_usuario'] = nome;
+            dio.options.headers['senha'] = senha;
+
+            try {
+              if (isFuncionario) {
+                print('Excluindo funcionario de id: ${dataFuncionario!.id}');
+                dio.delete(urlRequest['delete']['deleteFuncionario'], data: {
+                  'id': dataFuncionario!.id,
+                });
+                print(' Usuário excluido com sucesso!');
+              } else if (isPaciente) {
+                print('Excluindo paciente de id: ${dataPaciente!.id}');
+                dio.delete(urlRequest['delete']['deleteCliente'], data: {
+                  'id': dataPaciente!.id,
+                });
+                print('Usuário excluido com sucesso!');
+              } else {
+                print(
+                    'Não foi possivel concluir. Não é um funcionario nem um paciente.');
+              }
+            } catch (e) {
+              print('Erro ao excluir um usuário.');
+            }
           },
           color: Colors.red.shade300,
         ),

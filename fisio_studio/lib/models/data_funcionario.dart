@@ -6,7 +6,8 @@ class DataFuncionario {
   final String cpf;
   final String job;
   final int previlegio;
+  final int id;
 
-  DataFuncionario(this.name, this.adress, this.birthDate, this.phone, this.cpf,
-      this.job, this.previlegio);
+  DataFuncionario(this.id, this.name, this.adress, this.birthDate, this.phone,
+      this.cpf, this.job, this.previlegio);
 }

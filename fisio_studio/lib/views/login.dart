@@ -1,5 +1,5 @@
 import 'package:fisio_studio/components.dart';
-import 'package:fisio_studio/views/splash_page.dart';
+import 'package:fisio_studio/views/loadingLogin.dart';
 import 'package:fisio_studio/widgets/custom_buttom.dart';
 import 'package:fisio_studio/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
                             )
                           ],
                         )),
-                    const Expanded(flex: 6, child: AutenticatorBox())
+                    Expanded(flex: 6, child: AutenticatorBox())
                   ],
                 ),
               ),
@@ -40,7 +40,10 @@ class LoginPage extends StatelessWidget {
 }
 
 class AutenticatorBox extends StatelessWidget {
-  const AutenticatorBox({Key? key}) : super(key: key);
+  AutenticatorBox({Key? key}) : super(key: key);
+
+  String _username = '';
+  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,9 @@ class AutenticatorBox extends StatelessWidget {
                     Icons.person,
                     color: Colors.white,
                   ),
-                  onChanged: () {},
+                  onChanged: (value) {
+                    _username = value;
+                  },
                 ),
               ),
               Container(
@@ -73,7 +78,10 @@ class AutenticatorBox extends StatelessWidget {
                     Icons.lock,
                     color: Colors.white,
                   ),
-                  onChanged: () {},
+                  obscureText: true,
+                  onChanged: (value) {
+                    _password = value;
+                  },
                 ),
               ),
               Container(
@@ -81,9 +89,17 @@ class AutenticatorBox extends StatelessWidget {
                 child: CustomButtom(
                     label: 'Acessar',
                     onPressed: () {
+                      //Navigator.of(context).push(PageRouteBuilder(
+                      //    transitionDuration: const Duration(seconds: 2),
+                      //    pageBuilder: (_, __, ___) => const SplashPage()));
+                      print('Username: $_username\nSenha: $_password');
+
                       Navigator.of(context).push(PageRouteBuilder(
                           transitionDuration: const Duration(seconds: 2),
-                          pageBuilder: (_, __, ___) => const SplashPage()));
+                          pageBuilder: (_, __, ___) => SplashPage(
+                                username: _username,
+                                password: _password,
+                              )));
                     }),
               )
             ],

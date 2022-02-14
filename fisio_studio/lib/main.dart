@@ -1,5 +1,5 @@
 import 'package:fisio_studio/views/home_screen.dart';
-import 'package:fisio_studio/views/one_page.dart';
+import 'package:fisio_studio/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:desktop_window/desktop_window.dart';
 
@@ -17,10 +17,10 @@ class InitApp extends StatefulWidget {
 class InitAppState extends State<InitApp> {
   void setSizeScreen() async {
     Size size = await DesktopWindow.getWindowSize();
-    await DesktopWindow.setWindowSize(Size(1280, 720));
+    await DesktopWindow.setWindowSize(const Size(1280, 720));
 
-    await DesktopWindow.setMinWindowSize(Size(1280, 720));
-    await DesktopWindow.setMaxWindowSize(Size(1920, 1080));
+    await DesktopWindow.setMinWindowSize(const Size(1280, 720));
+    await DesktopWindow.setMaxWindowSize(const Size(1920, 1080));
   }
 
   @override
@@ -33,7 +33,7 @@ class InitAppState extends State<InitApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }

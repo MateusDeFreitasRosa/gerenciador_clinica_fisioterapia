@@ -1,11 +1,14 @@
 import 'package:fisio_studio/components.dart';
 import 'package:fisio_studio/models/data_funcionario.dart';
 import 'package:fisio_studio/models/data_paciente.dart';
+import 'package:fisio_studio/views/cadastro/cadastro_consulta.dart';
 import 'package:fisio_studio/views/cadastro/cadastro_funcionario.dart';
 import 'package:fisio_studio/views/cadastro/cadastro_paciente.dart';
 import 'package:fisio_studio/views/listagem/listar_funcionarios.dart';
 import 'package:fisio_studio/views/listagem/listar_pacientes.dart';
 import 'package:fisio_studio/views/tela_inicial.dart';
+import 'package:fisio_studio/views/view_consulta.dart';
+import 'package:fisio_studio/widgets/custom_calendar.dart';
 import 'package:fisio_studio/widgets/custom_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fisio_studio/models/pages.dart';
@@ -45,19 +48,24 @@ class _HomePageState extends State<HomePage>
   }
 
   bool isEdit = false;
-  DataFuncionario dataFuncionario = DataFuncionario('Mateus', 'Rua rua',
+  DataFuncionario dataFuncionario = DataFuncionario(1, 'Mateus', 'Rua rua',
       '14/15/20', '3488888', '121244545', 'Recepcionista', 1);
   DataPaciente dataPaciente =
-      DataPaciente('Mateus', 'Rua rua', '14/15/20', '3488888', '121244545');
+      DataPaciente(1, 'Mateus', 'Rua rua', '14/15/20', '3488888', '121244545');
 
+  Map<String, dynamic> kwards = {};
   void changePage(int idPage,
       {isFuncionario = false,
       isPaciente = false,
       isEdt = false,
       DataFuncionario? dtFuncionario,
-      DataPaciente? dtPaciente}) {
+      DataPaciente? dtPaciente,
+      dynamic kwd}) {
     print('Change page: $idPage');
     if (pages.containsKey(idPage)) {
+      if (kwd != null) {
+        setState(() => kwards = kwd);
+      }
       setState(() => currentPage = idPage);
 
       if ([1, 2].contains(currentPage) && isEdt) {
@@ -112,9 +120,35 @@ class _HomePageState extends State<HomePage>
                         ? ListPaciente(
                             changePage: changePage,
                           )
-                        : const Scaffold(
-                            backgroundColor: Colors.purple,
-                          );
+                        : currentPage == 5
+                            ? CustomCalendar(
+                                changePage: changePage,
+                              )
+                            : currentPage == 6
+                                ? CadastroConsulta(
+                                    dateTime: kwards['dateTime'],
+                                  )
+                                : currentPage == 7
+                                    ? ViewConsulta(
+                                        cpfFuncionario:
+                                            kwards['cpfFuncionario'] ?? '',
+                                        cpfPaciente:
+                                            kwards['cpfPaciente'] ?? '',
+                                        descConsulta:
+                                            kwards['descConsulta'] ?? '',
+                                        descPaciente:
+                                            kwards['descPaciente'] ?? '',
+                                        tipoConsulta:
+                                            kwards['tipoConsulta'] ?? '',
+                                        nomeFuncionario:
+                                            kwards['nomeFuncionario'] ?? '',
+                                        nomePaciente:
+                                            kwards['nomePaciente'] ?? '',
+                                        id: kwards['id'] ?? '',
+                                      )
+                                    : const Scaffold(
+                                        backgroundColor: Colors.purple,
+                                      );
   }
 
   @override

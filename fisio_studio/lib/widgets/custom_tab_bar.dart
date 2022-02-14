@@ -14,12 +14,14 @@ class _CustomTabBarState extends State<CustomTabBar> {
 
   buildCustomBUttonTabBar() {
     pages.forEach((key, value) {
-      buttonsBars.add(CustomButtonTabBar(
-        icon: value['icon'],
-        label: value['name'],
-        changePage: widget.changePage,
-        idPage: key,
-      ));
+      if (!value['hidden']) {
+        buttonsBars.add(CustomButtonTabBar(
+          icon: value['icon'],
+          label: value['name'],
+          changePage: widget.changePage,
+          idPage: key,
+        ));
+      }
     });
   }
 

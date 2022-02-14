@@ -49,7 +49,7 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
     //Enviar os dados para o servidor.
 
     Map<String, dynamic> dataPaciente = {
-      'nome_de_usuario': name,
+      'nome': name,
       'endereco': adress,
       'data_de_nascimento': date,
       'inicio_na_empresa': '11/12/2020',
@@ -58,7 +58,6 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
       'privilegio': 'Gerente'
     };
 
-    print(dataPaciente);
     if (!widget.isEditPage) {
       cadastrarClienteFuncionario(dataPaciente, 'cadastroCliente');
     }
@@ -165,7 +164,10 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
                             onPressed: sendData,
                           ),
                           widget.isEditPage
-                              ? const DeleteButton()
+                              ? DeleteButton(
+                                  idRemove: widget.dataPaciente!.id,
+                                  type: 'paciente',
+                                )
                               : Container(),
                         ],
                       ),

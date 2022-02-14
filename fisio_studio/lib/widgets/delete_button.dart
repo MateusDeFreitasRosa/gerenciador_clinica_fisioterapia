@@ -1,8 +1,57 @@
+import 'package:fisio_studio/components.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:dio/dio.dart';
 
 class DeleteButton extends StatelessWidget {
-  const DeleteButton({Key? key}) : super(key: key);
+  final dynamic type;
+  final int idRemove;
+  //funcionario, paciente e consulta.
+  DeleteButton({Key? key, this.type = 'funcionario', this.idRemove = -1})
+      : super(key: key);
+
+  void delete(int id) {
+    // Deletar funcionario ou paciente.
+    Dio dio = Dio();
+
+    if (id == -1) {
+      print('ID inválido!');
+      return;
+    }
+
+    String nome = 'ADM';
+    String senha = 'senha12345';
+    dio.options.headers['nome_de_usuario'] = nome;
+    dio.options.headers['senha'] = senha;
+
+    print('Chegamos aqui: $id');
+    try {
+      if (type == 'funcionario') {
+        print('Excluindo funcionario de id: ${id}');
+        dio.delete(urlRequest['delete']['deleteFuncionario'], data: {
+          'id': id,
+        });
+        print(' Usuário excluido com sucesso!');
+      } else if (type == 'paciente') {
+        print('Excluindo paciente de id: ${id}');
+        dio.delete(urlRequest['delete']['deleteCliente'], data: {
+          'id': id,
+        });
+        print('Usuário excluido com sucesso!');
+      } else if (type == 'consulta') {
+        print('Excluindo consulta de id: ${id}');
+        dio.delete(urlRequest['delete']['deleteConsulta'], data: {
+          'id': id,
+        });
+        print('Consulta excluido com sucesso!');
+      } else {
+        print(
+            'Não foi possivel concluir. Não é um funcionario nem um paciente.');
+      }
+    } catch (e) {
+      print('Erro ao excluir um usuário.');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +59,9 @@ class DeleteButton extends StatelessWidget {
       onTap: () {
         Alert(
             context: context,
-            title: 'Tem certeza que deseja excluir esse usuário?',
+            title: type == 'consulta'
+                ? 'Tem certeza que deseja excluir essa consulta?'
+                : 'Tem certeza que deseja excluir esse usuário?',
             desc: 'Essa ação não poderá ser desfeita',
             style: AlertStyle(
                 isCloseButton: false,
@@ -29,7 +80,9 @@ class DeleteButton extends StatelessWidget {
                   "Tenho certeza!",
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  delete(idRemove);
+                },
               ),
               DialogButton(
                 color: Colors.red.shade900,

@@ -59,6 +59,7 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
 
     Map<String, dynamic> dataFuncionario = {
       'nome_de_usuario': name,
+      'nome': name,
       'senha': password,
       'endereco': adress,
       'data_de_nascimento': date,
@@ -69,7 +70,6 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
       'privilegio': 'Gerente'
     };
 
-    print(dataFuncionario);
     if (!widget.isEditPage) {
       cadastrarClienteFuncionario(dataFuncionario, 'cadastroFuncionario');
     }
@@ -196,7 +196,7 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
                           obscureText: true,
                         ),
                       ),
-                      Slider(
+                      /*Slider(
                         value: 180,
                         onChanged: (value) {},
                         min: 30,
@@ -204,7 +204,7 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
                         inactiveColor: const Color(0xFF6C6D7B),
                         activeColor: Colors.white,
                         thumbColor: const Color(0xFFEB1555),
-                      ),
+                      ),*/
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -213,7 +213,10 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
                             onPressed: sendData,
                           ),
                           widget.isEditPage
-                              ? const DeleteButton()
+                              ? DeleteButton(
+                                  type: 'funcionario',
+                                  idRemove: widget.dataFuncionario!.id,
+                                )
                               : Container(),
                         ],
                       ),

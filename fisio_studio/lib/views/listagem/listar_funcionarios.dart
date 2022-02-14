@@ -1,8 +1,9 @@
-import 'package:fisio_studio/controllers/delete.dart';
+import 'package:fisio_studio/widgets/delete.dart';
 import 'package:fisio_studio/controllers/getFuncionarios.dart';
 import 'package:fisio_studio/controllers/visualization.dart';
 import 'package:fisio_studio/models/data_funcionario.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ListFuncionarios extends StatefulWidget {
   final changePage;
@@ -17,34 +18,43 @@ class _ListFuncionariosState extends State<ListFuncionarios> {
   List<CardFuncionario> cards = [];
   int page = 0;
   int pageSize = 10;
+  bool isfreeze = true;
 
   buildTable() async {
-    dynamic data = await getFuncionarios(page: page, pageSize: pageSize);
-    print('Data: ${data}');
-    List<dynamic> rows = data['rows'];
+    try {
+      dynamic data = await getFuncionarios(page: page, pageSize: pageSize);
+      print('Data: ${data}');
+      List<dynamic> rows = data['rows'];
 
-    int position = 1;
-    rows.forEach((element) {
-      print('CPF: ${element['CPF']}');
+      int position = 1;
 
-      DataFuncionario dataFuncionario = DataFuncionario(
-          element['nome_de_usuario'],
-          element['endereco'],
-          element['data_de_nascimento'],
-          element['telefone'],
-          element['CPF'],
-          element['profissao'],
-          element['privilegio']);
+      rows.forEach((element) {
+        print('CPF: ${element['CPF']}');
 
-      setState(() {
-        cards.add(CardFuncionario(
-          dataFuncionario: dataFuncionario,
-          pos: position,
-          changePage: widget.changePage,
-        ));
+        DataFuncionario dataFuncionario = DataFuncionario(
+            element['id'],
+            element['nome_de_usuario'],
+            element['endereco'],
+            element['data_de_nascimento'],
+            element['telefone'],
+            element['CPF'],
+            element['profissao'],
+            element['privilegio']);
+
+        setState(() {
+          cards.add(CardFuncionario(
+            dataFuncionario: dataFuncionario,
+            pos: position,
+            changePage: widget.changePage,
+          ));
+        });
+        position++;
       });
-      position++;
-    });
+    } catch (e) {
+      print(e);
+    } finally {
+      setState(() => isfreeze = false);
+    }
   }
 
   @override
@@ -59,17 +69,20 @@ class _ListFuncionariosState extends State<ListFuncionarios> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.transparent,
-        body: Column(
-          children: [
-            const HeadFuncionarios(),
-            Expanded(
-              child: cards.length == 0
-                  ? Container()
-                  : ListView(
-                      children: cards,
-                    ),
-            )
-          ],
+        body: ModalProgressHUD(
+          inAsyncCall: isfreeze,
+          child: Column(
+            children: [
+              const HeadFuncionarios(),
+              Expanded(
+                child: cards.length == 0
+                    ? Container()
+                    : ListView(
+                        children: cards,
+                      ),
+              )
+            ],
+          ),
         ));
   }
 }
@@ -186,7 +199,7 @@ class CardFuncionario extends StatelessWidget {
                         onTap: () {
                           changePage(
                             1,
-                            isFuncionario: false,
+                            isFuncionario: true,
                             isEdt: true,
                             dtFuncionario: dataFuncionario,
                           );

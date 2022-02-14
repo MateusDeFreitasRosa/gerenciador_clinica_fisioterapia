@@ -4,6 +4,14 @@ class DataPaciente {
   final String birthDate;
   final String phone;
   final String cpf;
+  final int id;
 
-  DataPaciente(this.name, this.adress, this.birthDate, this.phone, this.cpf,);
+  DataPaciente(
+    this.id,
+    this.name,
+    this.adress,
+    this.birthDate,
+    this.phone,
+    this.cpf,
+  );
 }
