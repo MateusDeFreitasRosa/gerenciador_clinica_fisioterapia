@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fisio_studio/components.dart';
 
-void cadastrarClienteFuncionario(Map<String, dynamic> data, String url) async {
+Future<dynamic> cadastrarClienteFuncionario(
+    Map<String, dynamic> data, String url) async {
   var dio = Dio();
 
   String nome = 'ADM';
@@ -20,10 +21,17 @@ void cadastrarClienteFuncionario(Map<String, dynamic> data, String url) async {
 
     print('StatusCode: ${response.statusCode}');
     if (response.statusCode! < 300) {
-      print('Cadastro realizado com sucesso!');
-      print(response.data);
+      return {
+        'statusCode': response.statusCode,
+        'data': 'Sucesso no cadastro!'
+      };
     }
   } catch (e) {
     print(e);
+    if (e is DioError) {
+      return {'statusCode': e.response!.statusCode, 'data': e.response!.data};
+    }
   }
+
+  return {'statusCode': 500, 'data': 'Erro interno'};
 }

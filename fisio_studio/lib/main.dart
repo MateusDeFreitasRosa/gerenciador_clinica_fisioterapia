@@ -33,7 +33,8 @@ class InitAppState extends State<InitApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: LoginPage(),
+      //home: LoginPage(),
+      home: HomePage(),
     );
   }
 }

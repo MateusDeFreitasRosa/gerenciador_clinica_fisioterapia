@@ -40,55 +40,198 @@ class ViewConsulta extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Center(
-        child: IntrinsicHeight(
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.black54, borderRadius: BorderRadius.circular(10)),
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Dados da consulta',
-                  style: TextStyle(
-                      color: Colors.blueGrey.shade200,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Stack(
+            children: [
+              IntrinsicHeight(
+                child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
+                      color: Colors.black54,
                       borderRadius: BorderRadius.circular(10)),
                   padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(top: 20, right: 20),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'Paciente',
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Dados da consulta',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
+                            color: Colors.blueGrey.shade200,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold),
                       ),
-                      IntrinsicWidth(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade900,
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            const Text(
+                              'Paciente',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            IntrinsicWidth(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    cpfPaciente,
+                                    style: style,
+                                  ),
+                                  const SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    nomePaciente,
+                                    style: style,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             Text(
-                              cpfPaciente,
+                              descPaciente,
+                              style: style,
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade900,
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Profissional',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            IntrinsicWidth(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    cpfFuncionario,
+                                    style: style,
+                                  ),
+                                  const SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    nomeFuncionario,
+                                    style: style,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              espcFuncionario,
+                              style: style,
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade900,
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Consulta',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            IntrinsicWidth(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    tipoConsulta,
+                                    style: style,
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Text(
+                                    nomeFuncionario,
+                                    style: style,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              descConsulta,
                               style: style,
                             ),
                             const SizedBox(
-                              width: 25,
+                              height: 10,
                             ),
-                            Text(
-                              nomePaciente,
-                              style: style,
+                            const Text(
+                              'Período consulta',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            IntrinsicWidth(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '05/02/2022',
+                                    style: style,
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Text(
+                                    '8:00 às 9:00',
+                                    style: style,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -96,152 +239,87 @@ class ViewConsulta extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        descPaciente,
-                        style: style,
-                      )
+                      IntrinsicWidth(
+                          child: Row(
+                        children: [
+                          DeleteButton(
+                            type: 'consulta',
+                            idRemove: id,
+                          )
+                        ],
+                      ))
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Profissional',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      IntrinsicWidth(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              cpfFuncionario,
-                              style: style,
-                            ),
-                            const SizedBox(
-                              width: 25,
-                            ),
-                            Text(
-                              nomeFuncionario,
-                              style: style,
-                            ),
-                          ],
+              ),
+              Positioned(
+                  right: 0,
+                  top: 0,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: IntrinsicHeight(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 12),
+                        decoration: BoxDecoration(
+                            color: Colors.blue.shade400,
+                            border: Border.all(color: Colors.blue, width: 3),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: const Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 30,
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        espcFuncionario,
-                        style: style,
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Consulta',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      IntrinsicWidth(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              tipoConsulta,
-                              style: style,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              nomeFuncionario,
-                              style: style,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        descConsulta,
-                        style: style,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'Período consulta',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      IntrinsicWidth(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '05/02/2022',
-                              style: style,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              '8:00 às 9:00',
-                              style: style,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                IntrinsicWidth(
-                    child: Row(
-                  children: [
-                    DeleteButton(
-                      type: 'consulta',
-                      idRemove: id,
-                    )
-                  ],
-                ))
-              ],
-            ),
+                    ),
+                  )),
+            ],
           ),
-        ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Anotações sobre a consulta',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              Container(
+                constraints: const BoxConstraints(
+                    maxHeight: 500,
+                    minHeight: 300,
+                    maxWidth: 700,
+                    minWidth: 350),
+                width: 200,
+                height: 200,
+                child: const TextField(
+                  minLines: 10,
+                  maxLines: 20,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Salvar',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    padding:
+                        MaterialStateProperty.all(const EdgeInsets.all(20))),
+              )
+            ],
+          )
+        ],
       ),
     );
   }

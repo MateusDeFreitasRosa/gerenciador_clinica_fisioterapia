@@ -21,7 +21,8 @@ Map<String, dynamic> urlRequest = {
     'getFuncionario': urlServer + 'funcionario',
     'getCliente': urlServer + 'cliente',
     'getConsultas': urlServer + 'cliente/agendamento/horarios',
-    'login': urlServer + 'login'
+    'login': urlServer + 'login',
+    'getClienteAniversariante': urlServer + 'cliente/aniversariantes',
   },
   'update': {
     'atualizaFuncionario': urlServer + 'funcionario',

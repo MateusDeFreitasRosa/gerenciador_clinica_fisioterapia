@@ -58,5 +58,13 @@ Map<int, Map<String, dynamic>> pages = {
     'name': 'Dados da consulta',
     'hidden': true,
     'icon': const Icon(Icons.view_agenda)
+  },
+  8: {
+    'name': 'Compra de Créditos',
+    'hidden': false,
+    'icon': const Icon(
+      Icons.add_shopping_cart_rounded,
+      color: Colors.white70,
+    ),
   }
 };

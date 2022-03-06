@@ -1,6 +1,7 @@
 import 'package:fisio_studio/components.dart';
 import 'package:fisio_studio/models/data_funcionario.dart';
 import 'package:fisio_studio/models/data_paciente.dart';
+import 'package:fisio_studio/views/aquisicao_creditos.dart';
 import 'package:fisio_studio/views/cadastro/cadastro_consulta.dart';
 import 'package:fisio_studio/views/cadastro/cadastro_funcionario.dart';
 import 'package:fisio_studio/views/cadastro/cadastro_paciente.dart';
@@ -146,9 +147,11 @@ class _HomePageState extends State<HomePage>
                                             kwards['nomePaciente'] ?? '',
                                         id: kwards['id'] ?? '',
                                       )
-                                    : const Scaffold(
-                                        backgroundColor: Colors.purple,
-                                      );
+                                    : currentPage == 8
+                                        ? const BuyCredits()
+                                        : const Scaffold(
+                                            backgroundColor: Colors.purple,
+                                          );
   }
 
   @override

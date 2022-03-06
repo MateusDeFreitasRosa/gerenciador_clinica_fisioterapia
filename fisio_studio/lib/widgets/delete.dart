@@ -55,13 +55,13 @@ void deleteUser(context,
               if (isFuncionario) {
                 print('Excluindo funcionario de id: ${dataFuncionario!.id}');
                 dio.delete(urlRequest['delete']['deleteFuncionario'], data: {
-                  'id': dataFuncionario!.id,
+                  'id': dataFuncionario.id,
                 });
                 print(' Usuário excluido com sucesso!');
               } else if (isPaciente) {
                 print('Excluindo paciente de id: ${dataPaciente!.id}');
                 dio.delete(urlRequest['delete']['deleteCliente'], data: {
-                  'id': dataPaciente!.id,
+                  'id': dataPaciente.id,
                 });
                 print('Usuário excluido com sucesso!');
               } else {
