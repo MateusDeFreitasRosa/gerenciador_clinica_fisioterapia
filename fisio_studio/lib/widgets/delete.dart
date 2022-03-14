@@ -9,7 +9,8 @@ void deleteUser(context,
     {isFuncionario = false,
     isPaciente = false,
     DataFuncionario? dataFuncionario,
-    DataPaciente? dataPaciente}) {
+    DataPaciente? dataPaciente,
+    changePage}) {
   // Check!
   if (isFuncionario == isPaciente)
     throw ('isFuncionario e isPacioente, ambos não podem ser iguais. Apenas um deve ser verdadeiro!');
@@ -58,12 +59,20 @@ void deleteUser(context,
                   'id': dataFuncionario.id,
                 });
                 print(' Usuário excluido com sucesso!');
+                Navigator.of(context).pop();
+                if (changePage != null) {
+                  changePage(0);
+                }
               } else if (isPaciente) {
                 print('Excluindo paciente de id: ${dataPaciente!.id}');
                 dio.delete(urlRequest['delete']['deleteCliente'], data: {
                   'id': dataPaciente.id,
                 });
                 print('Usuário excluido com sucesso!');
+                Navigator.of(context).pop();
+                if (changePage != null) {
+                  changePage(0);
+                }
               } else {
                 print(
                     'Não foi possivel concluir. Não é um funcionario nem um paciente.');

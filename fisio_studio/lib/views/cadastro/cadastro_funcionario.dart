@@ -10,7 +10,12 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 class CadastroFuncionario extends StatefulWidget {
   final DataFuncionario? dataFuncionario;
   final bool isEditPage;
-  CadastroFuncionario({Key? key, this.dataFuncionario, this.isEditPage = false})
+  final changePage;
+  CadastroFuncionario(
+      {Key? key,
+      this.dataFuncionario,
+      this.isEditPage = false,
+      this.changePage})
       : super(key: key);
 
   @override
@@ -60,76 +65,98 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
 
     //Enviar os dados para o servidor.
 
-    Map<String, dynamic> dataFuncionario = {
-      'nome_de_usuario': name,
-      'nome': name,
-      'senha': password,
-      'endereco': adress,
-      'data_de_nascimento': date,
-      'inicio_na_empresa': '2022-01-01',
-      'telefone': phone,
-      'CPF': cpf,
-      'profissao': job,
-      'privilegio': 'Gerente'
-    };
+    Map<String, dynamic> dataFuncionario = {};
+    if (!widget.isEditPage) {
+      dataFuncionario.addAll({
+        'nome_de_usuario': name,
+        'nome': name,
+        'senha': password,
+        'endereco': adress,
+        'data_de_nascimento': date,
+        'inicio_na_empresa': '2022-01-01',
+        'telefone': phone,
+        'CPF': cpf,
+        'profissao': job,
+        'privilegio': 'Gerente',
+        'id': 0
+      });
+    } else {
+      dataFuncionario.addAll({
+        'nome_de_usuario': name ?? widget.dataFuncionario!.name,
+        'nome': name ?? widget.dataFuncionario!.name,
+        'senha': password,
+        'endereco': adress ?? widget.dataFuncionario!.adress,
+        'data_de_nascimento': date ?? widget.dataFuncionario!.birthDate,
+        'inicio_na_empresa': '2022-01-01',
+        'telefone': phone ?? widget.dataFuncionario!.phone,
+        'CPF': cpf ?? widget.dataFuncionario!.cpf,
+        'profissao': job ?? widget.dataFuncionario!.job,
+        'privilegio': 'Gerente',
+        'id': widget.dataFuncionario!.id
+      });
+    }
 
     try {
       setState(() => freezeScreen = true);
-      if (!widget.isEditPage) {
-        dynamic response = await cadastrarClienteFuncionario(
-            dataFuncionario, 'cadastroFuncionario');
+      dynamic response = await cadastrarClienteFuncionario(
+          dataFuncionario, 'cadastroFuncionario', widget.isEditPage);
 
-        if (response['statusCode'] >= 200 && response['statusCode'] < 300) {
-          Alert(
-              context: context,
-              title: response['data'],
-              content: const Icon(
-                Icons.check_circle_outline,
-                color: Colors.green,
-                size: 75,
-              ),
-              style: const AlertStyle(
-                isCloseButton: false,
-              ),
-              buttons: [
-                DialogButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Okay!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ))
-              ]).show();
-        } else {
-          Alert(
-              context: context,
-              title: response['data'],
-              content: const Icon(
-                Icons.close_rounded,
-                color: Colors.red,
-                size: 75,
-              ),
-              style: const AlertStyle(
-                isCloseButton: false,
-              ),
-              buttons: [
-                DialogButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Okay!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ))
-              ]).show();
-        }
+      if (response['statusCode'] >= 200 && response['statusCode'] < 300) {
+        Alert(
+            context: context,
+            title: response['data'],
+            content: const Icon(
+              Icons.check_circle_outline,
+              color: Colors.green,
+              size: 75,
+            ),
+            style: const AlertStyle(
+              isCloseButton: false,
+            ),
+            buttons: [
+              DialogButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (widget.changePage != null) {
+                      widget.changePage(3);
+                    }
+                  },
+                  child: const Text(
+                    'Okay!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ))
+            ]).show();
+      } else {
+        Alert(
+            context: context,
+            title: response['data'],
+            content: const Icon(
+              Icons.close_rounded,
+              color: Colors.red,
+              size: 75,
+            ),
+            style: const AlertStyle(
+              isCloseButton: false,
+            ),
+            buttons: [
+              DialogButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (widget.changePage != null) {
+                      widget.changePage(3);
+                    }
+                  },
+                  child: const Text(
+                    'Okay!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ))
+            ]).show();
       }
     } catch (e) {
       print(e);
@@ -282,6 +309,7 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
                                 ? DeleteButton(
                                     type: 'funcionario',
                                     idRemove: widget.dataFuncionario!.id,
+                                    changePage: widget.changePage,
                                   )
                                 : Container(),
                           ],

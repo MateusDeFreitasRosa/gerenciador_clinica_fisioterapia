@@ -14,7 +14,8 @@ class ViewConsulta extends StatelessWidget {
       this.endConsulta = '',
       this.startConsulta = '',
       this.tipoConsulta = '',
-      this.id = -1})
+      this.id = -1,
+      this.changePage})
       : super(key: key);
 
   String cpfPaciente;
@@ -30,6 +31,8 @@ class ViewConsulta extends StatelessWidget {
   String startConsulta;
   String endConsulta;
   int id;
+
+  dynamic changePage;
 
   final dynamic style = const TextStyle(
     color: Colors.white70,
@@ -220,14 +223,14 @@ class ViewConsulta extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '05/02/2022',
+                                    startConsulta.toString(),
                                     style: style,
                                   ),
                                   const SizedBox(
                                     width: 15,
                                   ),
                                   Text(
-                                    '8:00 às 9:00',
+                                    endConsulta.toString(),
                                     style: style,
                                   ),
                                 ],
@@ -245,6 +248,7 @@ class ViewConsulta extends StatelessWidget {
                           DeleteButton(
                             type: 'consulta',
                             idRemove: id,
+                            changePage: changePage,
                           )
                         ],
                       ))
@@ -252,73 +256,73 @@ class ViewConsulta extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                  right: 0,
-                  top: 0,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: IntrinsicHeight(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 12),
-                        decoration: BoxDecoration(
-                            color: Colors.blue.shade400,
-                            border: Border.all(color: Colors.blue, width: 3),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                  )),
+              // Positioned(
+              //     right: 0,
+              //     top: 0,
+              //     child: TextButton(
+              //       onPressed: () {},
+              //       child: IntrinsicHeight(
+              //         child: Container(
+              //           padding: const EdgeInsets.symmetric(
+              //               vertical: 5, horizontal: 12),
+              //           decoration: BoxDecoration(
+              //               color: Colors.blue.shade400,
+              //               border: Border.all(color: Colors.blue, width: 3),
+              //               borderRadius:
+              //                   const BorderRadius.all(Radius.circular(10))),
+              //           child: const Icon(
+              //             Icons.edit,
+              //             color: Colors.white,
+              //             size: 30,
+              //           ),
+              //         ),
+              //       ),
+              //     )),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Anotações sobre a consulta',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              Container(
-                constraints: const BoxConstraints(
-                    maxHeight: 500,
-                    minHeight: 300,
-                    maxWidth: 700,
-                    minWidth: 350),
-                width: 200,
-                height: 200,
-                child: const TextField(
-                  minLines: 10,
-                  maxLines: 20,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2.0),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2.0),
-                    ),
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Salvar',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(20))),
-              )
-            ],
-          )
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     const Text(
+          //       'Anotações sobre a consulta',
+          //       style: TextStyle(color: Colors.white, fontSize: 20),
+          //     ),
+          //     Container(
+          //       constraints: const BoxConstraints(
+          //           maxHeight: 500,
+          //           minHeight: 300,
+          //           maxWidth: 700,
+          //           minWidth: 350),
+          //       width: 200,
+          //       height: 200,
+          //       child: const TextField(
+          //         minLines: 10,
+          //         maxLines: 20,
+          //         decoration: InputDecoration(
+          //           enabledBorder: OutlineInputBorder(
+          //             borderSide: BorderSide(color: Colors.white, width: 2.0),
+          //           ),
+          //           border: OutlineInputBorder(
+          //             borderSide: BorderSide(color: Colors.white, width: 2.0),
+          //           ),
+          //         ),
+          //         style: TextStyle(color: Colors.white),
+          //       ),
+          //     ),
+          //     TextButton(
+          //       onPressed: () {},
+          //       child: const Text(
+          //         'Salvar',
+          //         style: TextStyle(color: Colors.white, fontSize: 20),
+          //       ),
+          //       style: ButtonStyle(
+          //           backgroundColor: MaterialStateProperty.all(Colors.blue),
+          //           padding:
+          //               MaterialStateProperty.all(const EdgeInsets.all(20))),
+          //     )
+          //   ],
+          // )
         ],
       ),
     );

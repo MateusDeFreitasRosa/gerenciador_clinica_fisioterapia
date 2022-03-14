@@ -1,4 +1,3 @@
-import 'package:fisio_studio/views/home_screen.dart';
 import 'package:fisio_studio/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:desktop_window/desktop_window.dart';
@@ -33,8 +32,8 @@ class InitAppState extends State<InitApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      //home: LoginPage(),
-      home: HomePage(),
+      home: LoginPage(),
+      //home: HomePage(),
     );
   }
 }

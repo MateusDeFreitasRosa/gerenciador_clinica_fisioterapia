@@ -6,8 +6,13 @@ import 'package:dio/dio.dart';
 class DeleteButton extends StatelessWidget {
   final dynamic type;
   final int idRemove;
+  final dynamic changePage;
   //funcionario, paciente e consulta.
-  DeleteButton({Key? key, this.type = 'funcionario', this.idRemove = -1})
+  DeleteButton(
+      {Key? key,
+      this.type = 'funcionario',
+      this.idRemove = -1,
+      this.changePage})
       : super(key: key);
 
   void delete(int id) {
@@ -82,6 +87,10 @@ class DeleteButton extends StatelessWidget {
                 ),
                 onPressed: () {
                   delete(idRemove);
+                  Navigator.pop(context);
+                  if (changePage != null) {
+                    changePage(0);
+                  }
                 },
               ),
               DialogButton(

@@ -10,8 +10,10 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 class CadastroPaciente extends StatefulWidget {
   final DataPaciente? dataPaciente;
   final bool isEditPage;
+  final changePage;
 
-  const CadastroPaciente({Key? key, this.isEditPage = false, this.dataPaciente})
+  const CadastroPaciente(
+      {Key? key, this.isEditPage = false, this.dataPaciente, this.changePage})
       : super(key: key);
 
   @override
@@ -53,73 +55,93 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
 
     try {
       setState(() => freezeScreen = true);
-      Map<String, dynamic> dataPaciente = {
-        'nome': name,
-        'endereco': adress,
-        'data_de_nascimento': date,
-        'inicio_na_empresa': '11/12/2020',
-        'telefone': phone,
-        'CPF': cpf,
-        'privilegio': 'Gerente'
-      };
-      print('Onde estou?');
-      if (!widget.isEditPage) {
-        print('Não estou na editPage');
-        dynamic response =
-            await cadastrarClienteFuncionario(dataPaciente, 'cadastroCliente');
+      Map<String, dynamic> dataPaciente = {};
 
-        print(response);
-        if (response['statusCode'] >= 200 && response['statusCode'] < 300) {
-          Alert(
-              context: context,
-              title: response['data'],
-              content: const Icon(
-                Icons.check_circle_outline,
-                color: Colors.green,
-                size: 75,
-              ),
-              style: const AlertStyle(
-                isCloseButton: false,
-              ),
-              buttons: [
-                DialogButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Okay!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ))
-              ]).show();
-        } else {
-          Alert(
-              context: context,
-              title: response['data'],
-              content: const Icon(
-                Icons.close_rounded,
-                color: Colors.red,
-                size: 75,
-              ),
-              style: const AlertStyle(
-                isCloseButton: false,
-              ),
-              buttons: [
-                DialogButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Okay!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ))
-              ]).show();
-        }
+      if (!widget.isEditPage) {
+        dataPaciente.addAll({
+          'nome': name,
+          'endereco': adress,
+          'data_de_nascimento': date,
+          'inicio_na_empresa': '11/12/2020',
+          'telefone': phone,
+          'CPF': cpf,
+          'privilegio': 'Gerente'
+        });
+      } else {
+        dataPaciente.addAll({
+          'nome': name ?? widget.dataPaciente!.name,
+          'endereco': adress ?? widget.dataPaciente!.adress,
+          'data_de_nascimento': date ?? widget.dataPaciente!.birthDate,
+          'inicio_na_empresa': '11/12/2020',
+          'telefone': phone ?? widget.dataPaciente!.phone,
+          'CPF': cpf ?? widget.dataPaciente!.cpf,
+          'privilegio': 'Gerente',
+          'id': widget.dataPaciente!.id
+        });
+      }
+
+      print('Onde estou?');
+      print('Não estou na editPage');
+      dynamic response = await cadastrarClienteFuncionario(
+          dataPaciente, 'cadastroCliente', widget.isEditPage);
+
+      print(response);
+      if (response['statusCode'] >= 200 && response['statusCode'] < 300) {
+        Alert(
+            context: context,
+            title: response['data'],
+            content: const Icon(
+              Icons.check_circle_outline,
+              color: Colors.green,
+              size: 75,
+            ),
+            style: const AlertStyle(
+              isCloseButton: false,
+            ),
+            buttons: [
+              DialogButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (widget.changePage != null) {
+                      widget.changePage(4);
+                    }
+                  },
+                  child: const Text(
+                    'Okay!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ))
+            ]).show();
+      } else {
+        Alert(
+            context: context,
+            title: response['data'],
+            content: const Icon(
+              Icons.close_rounded,
+              color: Colors.red,
+              size: 75,
+            ),
+            style: const AlertStyle(
+              isCloseButton: false,
+            ),
+            buttons: [
+              DialogButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (widget.changePage != null) {
+                      widget.changePage(4);
+                    }
+                  },
+                  child: const Text(
+                    'Okay!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ))
+            ]).show();
       }
     } catch (e) {
       print(e);
@@ -235,6 +257,7 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
                                 ? DeleteButton(
                                     idRemove: widget.dataPaciente!.id,
                                     type: 'paciente',
+                                    changePage: widget.changePage,
                                   )
                                 : Container(),
                           ],

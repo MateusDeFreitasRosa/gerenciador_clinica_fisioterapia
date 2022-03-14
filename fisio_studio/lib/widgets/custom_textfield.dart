@@ -6,14 +6,16 @@ class CustomTextFiled extends StatefulWidget {
   final String labelInit;
   final dynamic onChanged;
   final bool obscureText;
-  CustomTextFiled(
-      {Key? key,
-      required this.hintText,
-      required this.icon,
-      this.labelInit = '',
-      required this.onChanged,
-      this.obscureText = false})
-      : super(key: key);
+  final bool enableWrite;
+  CustomTextFiled({
+    Key? key,
+    required this.hintText,
+    required this.icon,
+    this.labelInit = '',
+    required this.onChanged,
+    this.obscureText = false,
+    this.enableWrite = true,
+  }) : super(key: key);
 
   @override
   _CustomTextFiledState createState() => _CustomTextFiledState();
@@ -41,6 +43,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         ),
       ),
       obscureText: widget.obscureText,
+      enabled: widget.enableWrite,
       style: const TextStyle(color: Colors.white),
       onChanged: (value) {
         widget.onChanged(value);

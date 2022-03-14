@@ -107,11 +107,13 @@ class _HomePageState extends State<HomePage>
             ? CadastroFuncionario(
                 isEditPage: isEdt,
                 dataFuncionario: dataFuncionario,
+                changePage: changePage,
               )
             : currentPage == 2
                 ? CadastroPaciente(
                     isEditPage: isEdt,
                     dataPaciente: dataPaciente,
+                    changePage: changePage,
                   )
                 : currentPage == 3
                     ? ListFuncionarios(
@@ -146,6 +148,9 @@ class _HomePageState extends State<HomePage>
                                         nomePaciente:
                                             kwards['nomePaciente'] ?? '',
                                         id: kwards['id'] ?? '',
+                                        startConsulta: kwards['inicio'] ?? '',
+                                        endConsulta: kwards['fim'] ?? '',
+                                        changePage: changePage,
                                       )
                                     : currentPage == 8
                                         ? const BuyCredits()

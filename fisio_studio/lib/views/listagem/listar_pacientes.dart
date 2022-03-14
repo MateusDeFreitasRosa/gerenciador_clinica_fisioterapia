@@ -204,7 +204,9 @@ class CardPaciente extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           deleteUser(context,
-                              isPaciente: true, dataPaciente: dataPaciente);
+                              isPaciente: true,
+                              dataPaciente: dataPaciente,
+                              changePage: changePage);
                         },
                         child: Container(
                           margin: const EdgeInsets.all(5),

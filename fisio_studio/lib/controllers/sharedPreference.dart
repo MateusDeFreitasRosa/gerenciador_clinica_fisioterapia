@@ -27,3 +27,16 @@ dynamic loadSharedPreference(key) async {
 
   return sharedPreferences.get(key);
 }
+
+Future<bool> containsKeySharedPreferene(key) async {
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+
+  return sharedPreferences.containsKey(key);
+}
+
+Future<void> removeSharedPreference(key) async {
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+  sharedPreferences.remove(key);
+}

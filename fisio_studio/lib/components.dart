@@ -15,7 +15,8 @@ Map<String, dynamic> urlRequest = {
   'post': {
     'cadastroFuncionario': urlServer + 'funcionario',
     'cadastroCliente': urlServer + 'cliente',
-    'cadastroConsulta': urlServer + 'cliente/agendamento'
+    'cadastroConsulta': urlServer + 'cliente/agendamento',
+    'postAddCreditos': urlServer + 'cliente/credito'
   },
   'get': {
     'getFuncionario': urlServer + 'funcionario',
@@ -23,6 +24,8 @@ Map<String, dynamic> urlRequest = {
     'getConsultas': urlServer + 'cliente/agendamento/horarios',
     'login': urlServer + 'login',
     'getClienteAniversariante': urlServer + 'cliente/aniversariantes',
+    'getCreditosValidos': urlServer + 'cliente/credito/validos',
+    'getCreditosVencidos': urlServer + 'cliente/credito/vencidos',
   },
   'update': {
     'atualizaFuncionario': urlServer + 'funcionario',

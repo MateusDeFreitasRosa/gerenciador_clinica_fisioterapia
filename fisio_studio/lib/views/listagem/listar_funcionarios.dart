@@ -218,11 +218,10 @@ class CardFuncionario extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          deleteUser(
-                            context,
-                            isFuncionario: true,
-                            dataFuncionario: dataFuncionario,
-                          );
+                          deleteUser(context,
+                              isFuncionario: true,
+                              dataFuncionario: dataFuncionario,
+                              changePage: changePage);
                         },
                         child: Container(
                           margin: const EdgeInsets.all(5),

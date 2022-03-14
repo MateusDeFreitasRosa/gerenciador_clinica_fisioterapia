@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:fisio_studio/components.dart';
 
 Future<dynamic> cadastrarClienteFuncionario(
-    Map<String, dynamic> data, String url) async {
+    Map<String, dynamic> data, String url, bool isEdit) async {
   var dio = Dio();
 
   String nome = 'ADM';
@@ -17,8 +17,12 @@ Future<dynamic> cadastrarClienteFuncionario(
   print(data);
 
   try {
-    final response = await dio.post(urlRequest['post'][url], data: data);
-
+    final response;
+    if (isEdit) {
+      response = await dio.put(urlRequest['post'][url], data: data);
+    } else {
+      response = await dio.post(urlRequest['post'][url], data: data);
+    }
     print('StatusCode: ${response.statusCode}');
     if (response.statusCode! < 300) {
       return {

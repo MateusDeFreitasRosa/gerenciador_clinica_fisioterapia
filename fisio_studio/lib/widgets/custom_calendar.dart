@@ -47,7 +47,9 @@ class CustomCalendarState extends State<CustomCalendar> {
               cpfPaciente: scheduledAppointments[i]['paciente']['CPF'],
               nomePaciente: scheduledAppointments[i]['paciente']['nome'],
               tipoConsulta: scheduledAppointments[i]['tipo'],
-              id: scheduledAppointments[i]['id']));
+              id: scheduledAppointments[i]['id'],
+              inicio: scheduledAppointments[i]['inicio'],
+              fim: scheduledAppointments[i]['fim']));
         });
       }
     } catch (e) {
@@ -113,6 +115,8 @@ class CustomCalendarState extends State<CustomCalendar> {
           print('É um evento? ${isAppointments}');
 
           if (isAppointments) {
+            print('Appointments');
+
             widget.changePage(7, kwd: {
               'cpfFuncionario': appointments![0].cpfFuncionario,
               'nomeFuncionario': appointments![0].nomeFuncionario,
@@ -120,6 +124,8 @@ class CustomCalendarState extends State<CustomCalendar> {
               'cpfPaciente': appointments![0].cpfPaciente,
               'tipoConsulta': appointments![0].tipoConsulta,
               'id': appointments![0].id,
+              'inicio': appointments![0].inicio,
+              'fim': appointments![0].fim
               // 'descConsulta': appointments,
               // 'descPaciente': appointments,
             });
@@ -206,7 +212,9 @@ class Meeting {
       this.nomeFuncionario = '',
       this.nomePaciente = '',
       this.tipoConsulta = '',
-      this.id = -1});
+      this.id = -1,
+      this.inicio = '',
+      this.fim = ''});
 
   String eventName;
   DateTime from;
@@ -221,5 +229,7 @@ class Meeting {
   String tipoConsulta;
   String nomeFuncionario;
   String nomePaciente;
+  String inicio;
+  String fim;
   int id;
 }
